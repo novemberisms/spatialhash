@@ -172,7 +172,7 @@ class SpatialHash<T> {
     final result = itemsInRegion(
         Rectangle(regionTopLeft.x, regionTopLeft.y, regionWidth, regionHeight));
     result.remove(item);
-  
+
     return result;
   }
 
