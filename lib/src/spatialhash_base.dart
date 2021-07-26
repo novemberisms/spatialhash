@@ -76,7 +76,7 @@ class SpatialHash<T> {
       for (var gx = startGrid.x; gx <= endGrid.x; gx++) {
         final cell = _cell(gx, gy);
         cell.add(item);
-        _itemLookup[item].add(cell);
+        _itemLookup[item]!.add(cell);
       }
     }
   }
@@ -94,7 +94,7 @@ class SpatialHash<T> {
   /// or `false` if the item was not already in it.
   bool remove(T item) {
     if (!contains(item)) return false;
-    for (final cell in _itemLookup[item]) cell.remove(item);
+    for (final cell in _itemLookup[item]!) cell.remove(item);
     _itemLookup.remove(item);
     return true;
   }
@@ -146,7 +146,7 @@ class SpatialHash<T> {
   /// a definitive list of objects colliding with the given item.
   Set<T> near(T item) {
     final result = Set<T>();
-    for (final cell in _itemLookup[item]) result.addAll(cell._contents);
+    for (final cell in _itemLookup[item]!) result.addAll(cell._contents);
     result.remove(item);
     return result;
   }
@@ -163,9 +163,9 @@ class SpatialHash<T> {
   /// or if you need more precise range detection, you will then need to filter the contents of the returned set yourself.
   Set<T> range(T item, num range) {
     final rangeVector = Point(range, range);
-    final regionTopLeft = _itemLookup[item].first.rect.topLeft - rangeVector;
+    final regionTopLeft = _itemLookup[item]!.first.rect.topLeft - rangeVector;
     final regionBottomRight =
-        _itemLookup[item].last.rect.bottomRight + rangeVector;
+        _itemLookup[item]!.last.rect.bottomRight + rangeVector;
     final regionWidth = regionBottomRight.x - regionTopLeft.x;
     final regionHeight = regionBottomRight.y - regionTopLeft.y;
 
