@@ -1,6 +1,7 @@
+import "dart:math";
+
 import 'package:spatialhash/spatialhash.dart';
 import 'package:test/test.dart';
-import "dart:math";
 
 void main() {
   test("Adding an item to the spatial hash", () {
@@ -70,15 +71,78 @@ void main() {
   test("Getting the bounding box of a cell", () {
     final hash = SpatialHash<String>(3, 3, 10, 10);
 
-    expect(hash.cellAt(5, 5,).rect, equals(Rectangle(0, 0, 10, 10)));
-    expect(hash.cellAt(15, 5,).rect, equals(Rectangle(10, 0, 10, 10)));
-    expect(hash.cellAt(25, 5,).rect, equals(Rectangle(20, 0, 10, 10)));
-    expect(hash.cellAt(5, 15,).rect, equals(Rectangle(0, 10, 10, 10)));
-    expect(hash.cellAt(15, 15,).rect, equals(Rectangle(10, 10, 10, 10)));
-    expect(hash.cellAt(25, 15,).rect, equals(Rectangle(20, 10, 10, 10)));
-    expect(hash.cellAt(5, 25,).rect, equals(Rectangle(0, 20, 10, 10)));
-    expect(hash.cellAt(15, 25,).rect, equals(Rectangle(10, 20, 10, 10)));
-    expect(hash.cellAt(25, 25,).rect, equals(Rectangle(20, 20, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              5,
+              5,
+            )
+            .rect,
+        equals(Rectangle(0, 0, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              15,
+              5,
+            )
+            .rect,
+        equals(Rectangle(10, 0, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              25,
+              5,
+            )
+            .rect,
+        equals(Rectangle(20, 0, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              5,
+              15,
+            )
+            .rect,
+        equals(Rectangle(0, 10, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              15,
+              15,
+            )
+            .rect,
+        equals(Rectangle(10, 10, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              25,
+              15,
+            )
+            .rect,
+        equals(Rectangle(20, 10, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              5,
+              25,
+            )
+            .rect,
+        equals(Rectangle(0, 20, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              15,
+              25,
+            )
+            .rect,
+        equals(Rectangle(10, 20, 10, 10)));
+    expect(
+        hash
+            .cellAt(
+              25,
+              25,
+            )
+            .rect,
+        equals(Rectangle(20, 20, 10, 10)));
   });
 
   test("contains() method", () {
@@ -113,7 +177,10 @@ void main() {
     hash.add("fourth", Rectangle(15, 15, 10, 10));
 
     expect(
-        hash.cellAt(15, 15).toSet().containsAll(["first", "second", "third", "fourth"]),
+        hash
+            .cellAt(15, 15)
+            .toSet()
+            .containsAll(["first", "second", "third", "fourth"]),
         equals(true));
 
     hash.clear();
@@ -141,7 +208,8 @@ void main() {
     hash.update("first", Rectangle(15, 5, 10, 10));
     testContents([false, true, true, false, true, true, false, false, false]);
     hash.update("first", Rectangle(5, 25, 0, 0));
-    testContents([false, false, false, false, false, false, true, false, false]);
+    testContents(
+        [false, false, false, false, false, false, true, false, false]);
   });
 
   test("Iterating over all cells in a rectangular region", () {
